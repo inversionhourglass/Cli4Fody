@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Fody.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../../samples/ConsoleAppSample/ConsoleAppSample.csproj --share solution --addin Rougamo --mode append --addin Pooling --mode new -a composite-accessibility=false -n Inspects:Inspect -v \"execution(* *(..))\" -n Items:Item -a stateless=Random -a not-inspect=\"method(* *(..))\" -n Items:Item -a pattern=\"Test.Reset\""
+    }
+  }
+}
