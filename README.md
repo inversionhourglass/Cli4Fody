@@ -1,14 +1,14 @@
-# Fody.Cli
+# FodyWeavers.Cli
 
-中文 | [English](https://github.com/inversionhourglass/Fody.Cli/blob/master/README_en.md)
+中文 | [English](https://github.com/inversionhourglass/FodyWeavers.Cli/blob/master/README_en.md)
 
-Fody.Cli是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件。通过该工具，可以让部分Fody插件实现完全零侵入式的MSIL修改。
+FodyWeavers.Cli是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件。通过该工具，可以让部分Fody插件实现完全零侵入式的MSIL修改。
 
 ## 快速开始
 
-安装Fody.Cli
+安装FodyWeavers.Cli
 
-> dotnet tool install -g Fody.Cli
+> dotnet tool install -g FodyWeavers.Cli
 
 假设当前解决方案`MySolution.sln`下有如下`FodyWeavers.xml`：
 
@@ -53,7 +53,7 @@ Fody.Cli是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
           <Pooling />
         </Weavers>
         ```
-        使用Fody.Cli执行`fody MyProject.csproj --order Rougamo,Pooling,_others_` 后得到如下`FodyWeavers.xml`：
+        使用FodyWeavers.Cli执行`fody MyProject.csproj --order Rougamo,Pooling,_others_` 后得到如下`FodyWeavers.xml`：
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -131,4 +131,4 @@ Fody.Cli是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
 ## 零侵入代码织入案例
 
-[Pooling](https://github.com/inversionhourglass/Pooling) 使用 Fody.Cli 实现[零侵入式对象池操作替换](https://github.com/inversionhourglass/Pooling?tab=readme-ov-file#%E9%9B%B6%E4%BE%B5%E5%85%A5%E5%BC%8F%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C)。
+[Pooling](https://github.com/inversionhourglass/Pooling) 使用 FodyWeavers.Cli 实现[零侵入式对象池操作替换](https://github.com/inversionhourglass/Pooling?tab=readme-ov-file#%E9%9B%B6%E4%BE%B5%E5%85%A5%E5%BC%8F%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C)。

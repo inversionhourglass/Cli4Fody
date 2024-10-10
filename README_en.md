@@ -1,14 +1,14 @@
-# Fody.Cli
+# FodyWeavers.Cli
 
-[中文](https://github.com/inversionhourglass/Fody.Cli/blob/master/README.md) | English
+[中文](https://github.com/inversionhourglass/FodyWeavers.Cli/blob/master/README.md) | English
 
-Fody.Cli is a command-line tool used for managing and modifying `FodyWeavers.xml` files. Through this tool, some Fody plugins can achieve completely non-intrusive MSIL modifications.
+FodyWeavers.Cli is a command-line tool used for managing and modifying `FodyWeavers.xml` files. Through this tool, some Fody plugins can achieve completely non-intrusive MSIL modifications.
 
 ## Quick Start
 
-Install Fody.Cli
+Install FodyWeavers.Cli
 
-> dotnet tool install -g Fody.Cli
+> dotnet tool install -g FodyWeavers.Cli
 
 Assume the current solution `MySolution.sln` has the following `FodyWeavers.xml`:
 
@@ -53,7 +53,7 @@ The `FodyWeavers.xml` after executing the command:
           <Pooling />
         </Weavers>
         ```
-        After executing `fody MyProject.csproj --order Rougamo,Pooling,_others` with Fody.Cli, you get the following `FodyWeavers.xml`:
+        After executing `fody MyProject.csproj --order Rougamo,Pooling,_others` with FodyWeavers.Cli, you get the following `FodyWeavers.xml`:
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -131,4 +131,4 @@ The `FodyWeavers.xml` after executing the command:
 
 ## Non-Intrusive Code Weaving Case
 
-[Pooling](https://github.com/inversionhourglass/Pooling) uses Fody.Cli to achieve [non-intrusive object pooling operation replacement](https://github.com/inversionhourglass/Pooling/blob/master/README_en.md#zero-intrusion-pooling).
+[Pooling](https://github.com/inversionhourglass/Pooling) uses FodyWeavers.Cli to achieve [non-intrusive object pooling operation replacement](https://github.com/inversionhourglass/Pooling/blob/master/README_en.md#zero-intrusion-pooling).
