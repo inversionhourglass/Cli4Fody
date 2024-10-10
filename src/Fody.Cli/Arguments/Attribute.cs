@@ -1,17 +1,18 @@
 ﻿namespace Fody.Cli.Arguments
 {
-    public class Attribute(string key, string value)
+    public class Attribute
     {
-        public string Key => key;
-
-        public string Value => value;
-
-        public static Attribute Parse(string value)
+        public Attribute(string value)
         {
             var index = value.IndexOf('=');
             if (index == -1) throw new ArgumentException($"Incorrect attribute format: {value}");
 
-            return new(value[..index], value[++index..]);
+            Key = value[..index];
+            Value = value[++index..];
         }
+
+        public string Key { get; }
+
+        public string Value { get; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fody.Cli.Arguments
+﻿using System.Text.RegularExpressions;
+
+namespace Fody.Cli.Arguments
 {
     public class TargetPath
     {
@@ -21,6 +23,16 @@
         public bool IsSolution { get; }
 
         public string Directory { get; }
+
+        public string[] GetProjectPaths()
+        {
+            if (!IsSolution) return [Value];
+
+            var solutionContent = File.ReadAllText(Value);
+            var matches = Regex.Matches(solutionContent, @"Project\("".*""\) = "".*"", ""(.*?)""");
+
+            return matches.Select(x => x.Groups[1].Value).ToArray();
+        }
 
         public static TargetPath Parse(string targetPath)
         {

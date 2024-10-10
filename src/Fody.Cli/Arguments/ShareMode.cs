@@ -1,4 +1,4 @@
-﻿namespace Fody.Cli
+﻿namespace Fody.Cli.Arguments
 {
     public enum ShareMode
     {
