@@ -5,7 +5,7 @@ on:
       - prerelease
 env:
   TIMESTAMP: $(date +'%s')
-  SOLUTION: Pooling.sln
+  SOLUTION: Fody.Cli.sln
 jobs:
   publish:
     name: Build and Publish
