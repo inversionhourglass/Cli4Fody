@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>fody</ToolCommandName>
+    <ToolCommandName>fody-cli</ToolCommandName>
     <Description>Fody command-line tool for manipulating the configuration file FodyWeavers.xml</Description>
     <PackageTags>Fody</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
