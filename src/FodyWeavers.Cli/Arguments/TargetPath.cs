@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Fody.Cli.Arguments
+namespace FodyWeavers.Cli.Arguments
 {
     public partial class TargetPath
     {

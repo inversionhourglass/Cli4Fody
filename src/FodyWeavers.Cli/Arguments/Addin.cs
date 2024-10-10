@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Fody.Cli.Arguments
+namespace FodyWeavers.Cli.Arguments
 {
     public class Addin(string name)
     {

@@ -1,4 +1,4 @@
-﻿namespace Fody.Cli.Arguments
+﻿namespace FodyWeavers.Cli.Arguments
 {
     public class Attribute
     {

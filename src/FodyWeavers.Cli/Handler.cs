@@ -1,7 +1,7 @@
 ﻿using System.CommandLine.Invocation;
-using Fody.Cli.Arguments;
+using FodyWeavers.Cli.Arguments;
 
-namespace Fody.Cli
+namespace FodyWeavers.Cli
 {
     public class Handler
     {

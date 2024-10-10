@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
-namespace Fody.Cli.Arguments
+namespace FodyWeavers.Cli.Arguments
 {
     public class Args(string targetPath)
     {
