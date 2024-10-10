@@ -1,2 +1,3 @@
 # Fody.Cli
-A command line interface for Fody that manipulates Fody addins and the configuration file FodyWeavers.xml.
+
+中文 | [English](https://github.com/inversionhourglass/Fody.Cli/blob/master/README_en.md)
