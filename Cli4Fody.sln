@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 		README_en.md = README_en.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FodyWeavers.Cli", "src\FodyWeavers.Cli\FodyWeavers.Cli.csproj", "{C8A26F0A-22CD-494B-A51B-6783B5C90058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cli4Fody", "src\Cli4Fody\Cli4Fody.csproj", "{492809D9-7103-4DF0-A61A-17830208C801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,17 +28,17 @@ Global
 		{88750FA4-35D9-4656-BE76-23F2D29340DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88750FA4-35D9-4656-BE76-23F2D29340DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88750FA4-35D9-4656-BE76-23F2D29340DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8A26F0A-22CD-494B-A51B-6783B5C90058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8A26F0A-22CD-494B-A51B-6783B5C90058}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8A26F0A-22CD-494B-A51B-6783B5C90058}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8A26F0A-22CD-494B-A51B-6783B5C90058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{492809D9-7103-4DF0-A61A-17830208C801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492809D9-7103-4DF0-A61A-17830208C801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492809D9-7103-4DF0-A61A-17830208C801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492809D9-7103-4DF0-A61A-17830208C801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{88750FA4-35D9-4656-BE76-23F2D29340DE} = {242CC0AC-151F-40A7-8196-DF4C530F5425}
-		{C8A26F0A-22CD-494B-A51B-6783B5C90058} = {6184E9C0-B723-446D-A2D3-A3CD304BEAB2}
+		{492809D9-7103-4DF0-A61A-17830208C801} = {6184E9C0-B723-446D-A2D3-A3CD304BEAB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43EA1639-412F-46C9-85DB-8E8E73E179EA}
