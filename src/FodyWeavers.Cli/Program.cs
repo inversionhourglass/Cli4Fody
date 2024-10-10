@@ -1,7 +1,7 @@
 ﻿using System.CommandLine;
-using FodyWeavers.Cli.Arguments;
+using Cli4Fody.Arguments;
 
-namespace FodyWeavers.Cli
+namespace Cli4Fody
 {
     internal class Program
     {

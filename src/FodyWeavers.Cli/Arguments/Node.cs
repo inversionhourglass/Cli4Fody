@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace FodyWeavers.Cli.Arguments
+namespace Cli4Fody.Arguments
 {
     public class Node(string path)
     {

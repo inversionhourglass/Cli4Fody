@@ -15,12 +15,12 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
     <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
-    <PackageProjectUrl>https://github.com/inversionhourglass/FodyWeavers.Cli</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/inversionhourglass/FodyWeavers.Cli.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/inversionhourglass/Cli4Fody</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/inversionhourglass/Cli4Fody.git</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README_en.md</PackageReadmeFile>
-    <PackageReleaseNotes Condition="'$(VersionSuffix)' == ''">For details: https://github.com/inversionhourglass/FodyWeavers.Cli/releases/tag/v$(VersionPrefix)</PackageReleaseNotes>
+    <PackageReleaseNotes Condition="'$(VersionSuffix)' == ''">For details: https://github.com/inversionhourglass/Cli4Fody/releases/tag/v$(VersionPrefix)</PackageReleaseNotes>
   </PropertyGroup>
 	
   <ItemGroup>

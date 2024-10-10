@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "FodyWeavers.Cli": {
+    "Cli4Fody": {
       "commandName": "Project",
       //"commandLineArgs": "../../../../../samples/ConsoleAppSample/ConsoleAppSample.csproj --addin Rougamo -m overwrite --addin Pooling -m overwrite -a composite-accessibility=false -n Inspects:Inspect -v \"execution(* *(..))\" -n Items:Item -a stateless=Random -a not-inspect=\"method(* *(..))\" -n Items:Item -a pattern=\"Test.Reset\"",
       //"commandLineArgs": "../../../../../samples/StandaloneSln/StandaloneSln.sln --share solution --addin Rougamo -m overwrite --addin Pooling -m overwrite -a composite-accessibility=false -n Inspects:Inspect -v \"execution(* *(..))\" -n Items:Item -a stateless=Random -a not-inspect=\"method(* *(..))\" -n Items:Item -a pattern=\"Test.Reset\"",
