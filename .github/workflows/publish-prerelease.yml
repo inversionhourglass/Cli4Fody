@@ -5,7 +5,7 @@ on:
       - prerelease
 env:
   TIMESTAMP: $(date +'%s')
-  SOLUTION: Fody.Cli.sln
+  SOLUTION: FodyWeavers.Cli.sln
 jobs:
   publish:
     name: Build and Publish

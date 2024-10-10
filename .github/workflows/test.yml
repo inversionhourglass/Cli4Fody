@@ -8,7 +8,7 @@ on:
       - 'test/**'
       - '.github/workflows/**'
 env:
-  SOLUTION: Fody.Cli.sln
+  SOLUTION: FodyWeavers.Cli.sln
 jobs:
   build:
     name: Build
