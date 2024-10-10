@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pooling.Fody" Version="0.1.0-preview-1728320096" />
+    <PackageReference Include="Rougamo.Fody" Version="4.0.4" />
+  </ItemGroup>
+
+</Project>
