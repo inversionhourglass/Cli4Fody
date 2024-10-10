@@ -2,12 +2,12 @@
 
 namespace Fody.Cli.Arguments
 {
-    public class TargetPath
+    public partial class TargetPath
     {
         private TargetPath(string value)
         {
             Value = value;
-            Directory = Path.GetDirectoryName(value)!;
+            Directory = Path.GetFullPath(Path.GetDirectoryName(value)!);
             if (value.EndsWith(".sln"))
             {
                 IsSolution = true;
@@ -29,7 +29,7 @@ namespace Fody.Cli.Arguments
             if (!IsSolution) return [Value];
 
             var solutionContent = File.ReadAllText(Value);
-            var matches = Regex.Matches(solutionContent, @"Project\("".*""\) = "".*"", ""(.*?)""");
+            var matches = ProjectMatcher().Matches(solutionContent);
 
             return matches.Select(x => x.Groups[1].Value).ToArray();
         }
@@ -40,5 +40,8 @@ namespace Fody.Cli.Arguments
 
             return new(targetPath);
         }
+
+        [GeneratedRegex(@"Project\("".*""\) = "".*"", ""([^""]+\.csproj)""")]
+        private static partial Regex ProjectMatcher();
     }
 }

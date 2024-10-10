@@ -38,6 +38,7 @@ namespace Fody.Cli.Arguments
             }
             elements.Sort((a, b) => map[a].CompareTo(map[b]));
 
+            root.RemoveNodes();
             foreach (var element in elements)
             {
                 root.Add(element);

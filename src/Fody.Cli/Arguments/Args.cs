@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Xml;
+using System.Xml.Linq;
 
 namespace Fody.Cli.Arguments
 {
@@ -37,7 +38,8 @@ namespace Fody.Cli.Arguments
                 var projects = TargetPath.GetProjectPaths();
                 foreach (var project in projects)
                 {
-                    Build(Path.GetDirectoryName(project)!);
+                    var projectPath = Path.Combine(TargetPath.Directory, project);
+                    Build(Path.GetDirectoryName(projectPath)!);
                 }
             }
             else
@@ -71,7 +73,16 @@ namespace Fody.Cli.Arguments
 
             Order?.Sort(document);
 
-            document.Save(filePath);
+            document.Declaration = null;
+
+            var settings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+                IndentChars = "  "
+            };
+            using var writer = XmlWriter.Create(filePath, settings);
+            document.Save(writer);
         }
     }
 }
