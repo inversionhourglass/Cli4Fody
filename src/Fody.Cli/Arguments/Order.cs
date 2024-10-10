@@ -11,7 +11,7 @@ namespace Fody.Cli.Arguments
         public Order(string value)
         {
             Value = value;
-            _orderMap = value.Split(',').Select((x, i) => (x, i)).ToDictionary(x => x.x, x => x.i * 100);
+            _orderMap = value.Split(',').Select((x, i) => (x, i)).ToDictionary(x => x.x.Trim(), x => x.i * 100);
             if (!_orderMap.ContainsKey(OTHERS))
             {
                 _orderMap[OTHERS] = _orderMap.Count;
