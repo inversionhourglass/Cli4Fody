@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntersectConfig", "Intersec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrongFormat", "WrongFormat\WrongFormat.csproj", "{D74D93D3-9EB5-4CC8-90EF-44646200BA83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDefault", "FileDefault\FileDefault.csproj", "{2C11CD41-36C1-4974-8A72-7F4FB59F7B9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D74D93D3-9EB5-4CC8-90EF-44646200BA83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D74D93D3-9EB5-4CC8-90EF-44646200BA83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D74D93D3-9EB5-4CC8-90EF-44646200BA83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C11CD41-36C1-4974-8A72-7F4FB59F7B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C11CD41-36C1-4974-8A72-7F4FB59F7B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C11CD41-36C1-4974-8A72-7F4FB59F7B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C11CD41-36C1-4974-8A72-7F4FB59F7B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
