@@ -20,7 +20,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
 执行如下命令：
 
-> fody MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=true
+> fody-cli MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=true
 
 执行命令后的`FodyWeavers.xml`：
 
@@ -32,7 +32,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
 ## 命令格式
 
-> fody &lt;SolutionOrProjectPath&gt; [Options]
+> fody-cli &lt;SolutionOrProjectPath&gt; [Options]
 
 - `<solutionOrProjectPath>` 解决方案文件(*.sln)路径或项目文件(*.csproj)路径
 - Options
@@ -53,7 +53,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
           <Pooling />
         </Weavers>
         ```
-        使用Cli4Fody执行`fody MyProject.csproj --order Rougamo,Pooling,_others_` 后得到如下`FodyWeavers.xml`：
+        使用Cli4Fody执行`fody-cli MyProject.csproj --order Rougamo,Pooling,_others_` 后得到如下`FodyWeavers.xml`：
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -67,7 +67,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
         配置插件`ADDIN`，`<ADDIN>`为插件名称（不要`Fody`后缀），如果`FodyWeavers.xml`已存在且`ADDIN`节点不存在则追加到`ADDIN`节点到最后。如果`FodyWeavers.xml`文件不存在，则生成`FodyWeavers.xml`文件并增加`ADDIN`节点。
         
-        例：`fody MyProject.csproj --addin Rougamo`
+        例：`fody-cli MyProject.csproj --addin Rougamo`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -78,15 +78,15 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
         操作模式，`--addin`的子配置项，默认`overwrite`，新建或重写以存在的`--addin`配置节点；`default`表示仅作为默认配置，如果`--addin`配置节点已存在则不进行任何修改。注意`-m, --mode`作为`--addin`的子配置项，必须在`--addin`之后指定。
         
-        正确用法：`fody MySolution.sln --addin Rougamo -m default`
+        正确用法：`fody-cli MySolution.sln --addin Rougamo -m default`
         
-        错误用法：`fody MySolution.sln -m default --addin Rougamo`
+        错误用法：`fody-cli MySolution.sln -m default --addin Rougamo`
 
     - `-n, --node <NODE>`
 
         为插件添加子节点，`--addin`的子配置项。对于多层级的节点，可以使用`:`表达多级节点，比如`Items:Item`表示当前插件配置节点下的`Items`节点下的`Item`节点，多次指定同一个节点路径表示追加。
         
-        例：`fody MySolution.sln --addin Pooling -n Items:Item -n Items:Item`
+        例：`fody-cli MySolution.sln --addin Pooling -n Items:Item -n Items:Item`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling>
@@ -102,7 +102,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
         为插件或节点添加属性，`--addin`和`--node`的子配置项。
 
-        例：`fody MySolution.sln --addin Pooling -a enabled=true -n Items:Item -a "pattern=method(* StringBuilder.Clear(..))" -n Items:Item -a stateless=Random`
+        例：`fody-cli MySolution.sln --addin Pooling -a enabled=true -n Items:Item -a "pattern=method(* StringBuilder.Clear(..))" -n Items:Item -a stateless=Random`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling enabled="true">
@@ -118,7 +118,7 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
 
         为插件或节点设置节点值，`--addin`和`--node`的子配置项。
 
-        例：`fody MySolution.sln --addin Pooling -n Inspects:Inspect -v "execution(* *(..))"`
+        例：`fody-cli MySolution.sln --addin Pooling -n Inspects:Inspect -v "execution(* *(..))"`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling enabled="true">

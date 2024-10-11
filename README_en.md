@@ -20,7 +20,7 @@ Assume the current solution `MySolution.sln` has the following `FodyWeavers.xml`
 
 Execute the following command:
 
-> fody MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=true
+> fody-cli MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=true
 
 The `FodyWeavers.xml` after executing the command:
 
@@ -32,7 +32,7 @@ The `FodyWeavers.xml` after executing the command:
 
 ## Command Format
 
-> fody &lt;SolutionOrProjectPath&gt; [Options]
+> fody-cli &lt;SolutionOrProjectPath&gt; [Options]
 
 - `<solutionOrProjectPath>` The path to the solution file (*.sln) or project file (*.csproj).
 - Options
@@ -53,7 +53,7 @@ The `FodyWeavers.xml` after executing the command:
           <Pooling />
         </Weavers>
         ```
-        After executing `fody MyProject.csproj --order Rougamo,Pooling,_others` with Cli4Fody, you get the following `FodyWeavers.xml`:
+        After executing `fody-cli MyProject.csproj --order Rougamo,Pooling,_others` with Cli4Fody, you get the following `FodyWeavers.xml`:
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -67,7 +67,7 @@ The `FodyWeavers.xml` after executing the command:
 
         Configures the plugin `<ADDIN>`. `<ADDIN>` is the name of the plugin (without the `Fody` suffix). If the `FodyWeavers.xml` already exists and the `<ADDIN>` node does not exist, it appends the `<ADDIN>` node to the end. If the `FodyWeavers.xml` file does not exist, it generates a `FodyWeavers.xml` file and adds the `<ADDIN>` node.
         
-        Example: `fody MyProject.csproj --addin Rougamo`
+        Example: `fody-cli MyProject.csproj --addin Rougamo`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Rougamo />
@@ -78,15 +78,15 @@ The `FodyWeavers.xml` after executing the command:
 
         Operation mode, a sub-option of `--addin`. The default is `overwrite`, which creates or overwrites an existing `--addin` configuration node. `default` means to set it as the default configuration; if the `--addin` configuration node already exists, no changes are made. Note that `-m, --mode` must be specified after `--addin` as a sub-option of `--addin`.
         
-        Correct usage: `fody MySolution.sln --addin Rougamo -m default`
+        Correct usage: `fody-cli MySolution.sln --addin Rougamo -m default`
         
-        Incorrect usage: `fody MySolution.sln -m default --addin Rougamo`
+        Incorrect usage: `fody-cli MySolution.sln -m default --addin Rougamo`
 
     - `-n, --node <NODE>`
 
         Adds a child node to the plugin, a sub-option of `--addin`. For multi-level nodes, you can use `:` to express multiple levels, such as `Items:Item` indicating the `Item` node under the `Items` node under the current plugin configuration node. Specifying the same node path multiple times indicates appending.
         
-        Example: `fody MySolution.sln --addin Pooling -n Items:Item -n Items:Item`
+        Example: `fody-cli MySolution.sln --addin Pooling -n Items:Item -n Items:Item`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling>
@@ -102,7 +102,7 @@ The `FodyWeavers.xml` after executing the command:
 
         Adds attributes to plugins or nodes, a sub-option of both `--addin` and `--node`.
 
-        Example: `fody MySolution.sln --addin Pooling -a enabled=true -n Items:Item -a "pattern=method(* StringBuilder.Clear(..))" -n Items:Item -a stateless=Random`
+        Example: `fody-cli MySolution.sln --addin Pooling -a enabled=true -n Items:Item -a "pattern=method(* StringBuilder.Clear(..))" -n Items:Item -a stateless=Random`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling enabled="true">
@@ -118,7 +118,7 @@ The `FodyWeavers.xml` after executing the command:
 
         Sets the value of a node for plugins or nodes, a sub-option of both `--addin` and `--node`.
 
-        Example: `fody MySolution.sln --addin Pooling -n Inspects:Inspect -v "execution(* *(..))"`
+        Example: `fody-cli MySolution.sln --addin Pooling -n Inspects:Inspect -v "execution(* *(..))"`
         ```xml
         <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
           <Pooling enabled="true">
