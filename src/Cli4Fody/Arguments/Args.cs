@@ -31,14 +31,24 @@ namespace Cli4Fody.Arguments
             Order = new(order);
         }
 
+        public void Install()
+        {
+            foreach (var projectPath in TargetPath.GetProjectPaths())
+            {
+                foreach (var addin in Addins)
+                {
+                    addin.Install(projectPath);
+                }
+            }
+        }
+
         public void Build()
         {
+            var projectPaths = TargetPath.GetProjectPaths();
             if (Share == ShareMode.Project && TargetPath.IsSolution)
             {
-                var projects = TargetPath.GetProjectPaths();
-                foreach (var project in projects)
+                foreach (var projectPath in projectPaths)
                 {
-                    var projectPath = Path.Combine(TargetPath.Directory, project);
                     Build(Path.GetDirectoryName(projectPath)!);
                 }
             }

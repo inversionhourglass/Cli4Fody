@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace Cli4Fody.Arguments
 {
@@ -7,6 +8,8 @@ namespace Cli4Fody.Arguments
         public string Name => name;
 
         public ManipulationMode Mode { get; private set; } = ManipulationMode.Overwrite;
+
+        public string? PackageVersion { get; set; }
 
         public List<Attribute> Attributes { get; } = [];
 
@@ -22,6 +25,27 @@ namespace Cli4Fody.Arguments
                 "default" => ManipulationMode.Default,
                 _ => throw new ArgumentException($"Invalid mode value: {mode}")
             };
+        }
+
+        public void Install(string projectPath)
+        {
+            if (PackageVersion == null) return;
+
+            var directory = Path.GetDirectoryName(projectPath);
+            var fileName = Path.GetFileName(projectPath);
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "dotnet",
+                Arguments = $"add \"{fileName}\" package {Name}.Fody -v {PackageVersion} --no-restore",
+                WorkingDirectory = directory,
+                UseShellExecute = false,
+                CreateNoWindow = false
+            };
+
+            using var process = Process.Start(startInfo);
+            process!.WaitForExit();
+            if (process.ExitCode != 0) throw new InvalidOperationException("Running `dotnet add package` failed.");
         }
 
         public void Build(XDocument document)

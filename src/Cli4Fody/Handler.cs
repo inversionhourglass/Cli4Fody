@@ -10,6 +10,7 @@ namespace Cli4Fody
             try
             {
                 var args = ParseArgs(context);
+                args.Install();
                 args.Build();
             }
             catch (Exception ex)
@@ -50,6 +51,12 @@ namespace Cli4Fody
                         TryEndUpAddinAddNode(args, ref addin, ref node);
                         CheckIndex(i++, count, "addin");
                         addin = new Addin(tokens[i].Value);
+                        break;
+                    case "-pv":
+                    case "--package-version":
+                        EnsureAddinNotNull(addin, "package-version");
+                        CheckIndex(i++, count, "package-version");
+                        addin!.PackageVersion = tokens[i].Value;
                         break;
                     case "-m":
                     case "--mode":

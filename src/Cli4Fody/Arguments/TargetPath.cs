@@ -4,14 +4,16 @@ namespace Cli4Fody.Arguments
 {
     public partial class TargetPath
     {
+        private string[]? _projectPaths;
+
         private TargetPath(string value)
         {
-            Value = value;
             if (!Path.IsPathRooted(value))
             {
                 value = Path.Combine(System.IO.Directory.GetCurrentDirectory(), value);
             }
-            Directory = Path.GetFullPath(Path.GetDirectoryName(value)!);
+            Value = value;
+            Directory = Path.GetDirectoryName(value)!;
             if (value.EndsWith(".sln"))
             {
                 IsSolution = true;
@@ -30,12 +32,22 @@ namespace Cli4Fody.Arguments
 
         public string[] GetProjectPaths()
         {
-            if (!IsSolution) return [Value];
+            if (_projectPaths == null)
+            {
+                if (!IsSolution)
+                {
+                    _projectPaths = [Value];
+                }
+                else
+                {
+                    var solutionContent = File.ReadAllText(Value);
+                    var matches = ProjectMatcher().Matches(solutionContent);
 
-            var solutionContent = File.ReadAllText(Value);
-            var matches = ProjectMatcher().Matches(solutionContent);
+                    _projectPaths = matches.Select(x => Path.Combine(Directory, x.Groups[1].Value)).ToArray();
+                }
+            }
 
-            return matches.Select(x => x.Groups[1].Value).ToArray();
+            return _projectPaths;
         }
 
         public static TargetPath Parse(string targetPath)
