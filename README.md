@@ -2,7 +2,7 @@
 
 中文 | [English](https://github.com/inversionhourglass/Cli4Fody/blob/master/README_en.md)
 
-Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件。通过该工具，可以让部分Fody插件实现完全零侵入式的MSIL修改。
+Cli4Fody是一个命令行工具，用于管理Fody插件和修改`FodyWeavers.xml`文件。通过该工具，可以让部分Fody插件实现完全零侵入式的MSIL修改。
 
 ## 快速开始
 
@@ -73,6 +73,10 @@ Cli4Fody是一个命令行工具，用于管理和修改`FodyWeavers.xml`文件�
           <Rougamo />
         </Weavers>
         ```
+
+    - `-pv, --package-version`
+
+        插件版本，`--addin`的子配置项。当指定该参数后，Cli4Fody会为每个项目添加当前插件的NuGet，版本为当前参数值。该参数可以用来解决Fody插件间接依赖MSBuild任务无效的问题，该参数为每个项目添加NuGet直接依赖。需要注意的是，为了加快Cli4Fody的执行速度，NuGet采用了`--no-restore`的方式进行安装。
 
     - `-m, --mode <overwrite|default>`
 

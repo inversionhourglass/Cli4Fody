@@ -2,7 +2,7 @@
 
 [中文](https://github.com/inversionhourglass/Cli4Fody/blob/master/README.md) | English
 
-Cli4Fody is a command-line tool used for managing and modifying `FodyWeavers.xml` files. Through this tool, some Fody plugins can achieve completely non-intrusive MSIL modifications.
+Cli4Fody is a command-line tool used for managing Fody addins and modifying `FodyWeavers.xml` files. Through this tool, some Fody plugins can achieve completely non-intrusive MSIL modifications.
 
 ## Quick Start
 
@@ -73,6 +73,10 @@ The `FodyWeavers.xml` after executing the command:
           <Rougamo />
         </Weavers>
         ```
+
+    - `-pv, --package-version`
+
+        Plugin version, a sub-option of `--addin`. When this parameter is specified, Cli4Fody will add the NuGet package of the current plugin to each project, with the version being the current parameter value. This parameter can be used to resolve issues where indirect dependencies on MSBuild tasks by Fody plugins are ineffective. By adding a direct NuGet dependency to each project, this issue can be mitigated. It's important to note that to speed up the execution of Cli4Fody, NuGet packages are installed using the `--no-restore` option.
 
     - `-m, --mode <overwrite|default>`
 

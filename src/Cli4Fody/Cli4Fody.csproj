@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>fody-cli</ToolCommandName>
-    <Description>Fody command-line tool for manipulating the configuration file FodyWeavers.xml</Description>
+    <Description>Fody command-line tool for manipulating fody addins and the configuration file FodyWeavers.xml</Description>
     <PackageTags>Fody</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
