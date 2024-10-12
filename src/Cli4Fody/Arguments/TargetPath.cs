@@ -7,6 +7,10 @@ namespace Cli4Fody.Arguments
         private TargetPath(string value)
         {
             Value = value;
+            if (!Path.IsPathRooted(value))
+            {
+                value = Path.Combine(System.IO.Directory.GetCurrentDirectory(), value);
+            }
             Directory = Path.GetFullPath(Path.GetDirectoryName(value)!);
             if (value.EndsWith(".sln"))
             {
