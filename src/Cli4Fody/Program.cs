@@ -9,7 +9,8 @@ namespace Cli4Fody
         {
             var rootCommand = new RootCommand("Manipulates Fody addins");
 
-            var targetPathArgument = new Argument<string>("target-path", "The solution path or the project path that is going to be manipulated");
+            var solutionOrProjectPathArgument = new Argument<string>("solutionOrProjectPath", "The solution path or the project path that is going to be manipulated");
+            var includeFodyOption = new Option<string>("--include-fody", "Fody package version, install fody for the projects.");
             var shareOption = new Option<ShareMode>("--share", "Generate the FodyWeavers.xml file in the solution folder or the project folder");
             var orderOption = new Option<string>("--order", "Custom addin orders. The addin names are split with `,` and use _others_ for the addins that are not specified");
             var addinOption = new Option<string[]>("--addin", "The addin to use") { Arity = ArgumentArity.ZeroOrMore };
@@ -19,7 +20,8 @@ namespace Cli4Fody
             var attributeOption = new Option<string[]>(["--attribute", "-a"], "Add an attribute to the current addin or node") { Arity = ArgumentArity.ZeroOrMore };
             var valueOption = new Option<string[]>(["--value", "-v"], "Set the value of the current node") { Arity = ArgumentArity.ZeroOrMore };
 
-            rootCommand.AddArgument(targetPathArgument);
+            rootCommand.AddArgument(solutionOrProjectPathArgument);
+            rootCommand.AddOption(includeFodyOption);
             rootCommand.AddOption(shareOption);
             rootCommand.AddOption(orderOption);
             rootCommand.AddOption(addinOption);

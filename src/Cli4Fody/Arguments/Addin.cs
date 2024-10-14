@@ -7,6 +7,8 @@ namespace Cli4Fody.Arguments
     {
         public string Name => name;
 
+        public virtual string PackageName => $"{name}.Fody";
+
         public ManipulationMode Mode { get; private set; } = ManipulationMode.Overwrite;
 
         public string? PackageVersion { get; set; }
@@ -37,7 +39,7 @@ namespace Cli4Fody.Arguments
             var startInfo = new ProcessStartInfo
             {
                 FileName = "dotnet",
-                Arguments = $"add \"{fileName}\" package {Name}.Fody -v {PackageVersion} --no-restore",
+                Arguments = $"add \"{fileName}\" package {PackageName} -v {PackageVersion} --no-restore",
                 WorkingDirectory = directory,
                 UseShellExecute = false,
                 CreateNoWindow = false
@@ -48,7 +50,7 @@ namespace Cli4Fody.Arguments
             if (process.ExitCode != 0) throw new InvalidOperationException("Running `dotnet add package` failed.");
         }
 
-        public void Build(XDocument document)
+        public virtual void Build(XDocument document)
         {
             var addin = BuildElement(document);
             if (addin == null) return;

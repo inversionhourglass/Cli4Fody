@@ -3,12 +3,12 @@ using System.Xml.Linq;
 
 namespace Cli4Fody.Arguments
 {
-    public class Args(string targetPath)
+    public class Args(string solutionOrProjectPath)
     {
         private const string FILE_NAME = "FodyWeavers.xml";
         private const string ROOT = "Weavers";
 
-        public TargetPath TargetPath { get; } = TargetPath.Parse(targetPath);
+        public TargetPath SolutionOrProjectPath { get; } = TargetPath.Parse(solutionOrProjectPath);
 
         public ShareMode Share { get; private set; } = ShareMode.Project;
 
@@ -33,7 +33,7 @@ namespace Cli4Fody.Arguments
 
         public void Install()
         {
-            foreach (var projectPath in TargetPath.GetProjectPaths())
+            foreach (var projectPath in SolutionOrProjectPath.GetProjectPaths())
             {
                 foreach (var addin in Addins)
                 {
@@ -44,8 +44,8 @@ namespace Cli4Fody.Arguments
 
         public void Build()
         {
-            var projectPaths = TargetPath.GetProjectPaths();
-            if (Share == ShareMode.Project && TargetPath.IsSolution)
+            var projectPaths = SolutionOrProjectPath.GetProjectPaths();
+            if (Share == ShareMode.Project && SolutionOrProjectPath.IsSolution)
             {
                 foreach (var projectPath in projectPaths)
                 {
@@ -54,7 +54,7 @@ namespace Cli4Fody.Arguments
             }
             else
             {
-                Build(TargetPath.Directory);
+                Build(SolutionOrProjectPath.Directory);
             }
         }
 

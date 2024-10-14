@@ -37,44 +37,49 @@ namespace Cli4Fody
                 var token = tokens[i].Value;
                 switch (token)
                 {
+                    case "--include-fody":
+                        TryEndUpAddinAddNode(args, ref addin, ref node);
+                        CheckIndex(i++, count, "--include-fody");
+                        args.Addins.Add(new FodySelf { PackageVersion = tokens[i].Value });
+                        break;
                     case "--share":
                         TryEndUpAddinAddNode(args, ref addin, ref node);
-                        CheckIndex(i++, count, "share");
+                        CheckIndex(i++, count, "--share");
                         args.SetShare(tokens[i].Value);
                         break;
                     case "--order":
                         TryEndUpAddinAddNode(args, ref addin, ref node);
-                        CheckIndex(i++, count, "sort");
+                        CheckIndex(i++, count, "--sort");
                         args.SetOrder(tokens[i].Value);
                         break;
                     case "--addin":
                         TryEndUpAddinAddNode(args, ref addin, ref node);
-                        CheckIndex(i++, count, "addin");
+                        CheckIndex(i++, count, "--addin");
                         addin = new Addin(tokens[i].Value);
                         break;
                     case "-pv":
                     case "--package-version":
-                        EnsureAddinNotNull(addin, "package-version");
-                        CheckIndex(i++, count, "package-version");
+                        EnsureAddinNotNull(addin, "--package-version");
+                        CheckIndex(i++, count, "--package-version");
                         addin!.PackageVersion = tokens[i].Value;
                         break;
                     case "-m":
                     case "--mode":
-                        EnsureAddinNotNull(addin, "mode");
-                        CheckIndex(i++, count, "mode");
+                        EnsureAddinNotNull(addin, "--mode");
+                        CheckIndex(i++, count, "--mode");
                         addin!.SetMode(tokens[i].Value);
                         break;
                     case "-n":
                     case "--node":
-                        EnsureAddinNotNull(addin, "node");
+                        EnsureAddinNotNull(addin, "--node");
                         TryEndUpNode(addin!, ref node);
-                        CheckIndex(i++, count, "node");
+                        CheckIndex(i++, count, "--node");
                         node = new(tokens[i].Value);
                         break;
                     case "-a":
                     case "--attribute":
-                        EnsureAddinNotNull(addin, "attribute");
-                        CheckIndex(i++, count, "attribute");
+                        EnsureAddinNotNull(addin, "--attribute");
+                        CheckIndex(i++, count, "--attribute");
                         var attribute = new Arguments.Attribute(tokens[i].Value);
                         if (node == null)
                         {
@@ -87,8 +92,8 @@ namespace Cli4Fody
                         break;
                     case "-v":
                     case "--value":
-                        EnsureAddinNotNull(addin, "value");
-                        CheckIndex(i++, count, "value");
+                        EnsureAddinNotNull(addin, "--value");
+                        CheckIndex(i++, count, "--value");
                         var value = tokens[i].Value;
                         if (node == null)
                         {
