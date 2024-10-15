@@ -20,13 +20,14 @@ Assume the current solution `MySolution.sln` has the following `FodyWeavers.xml`
 
 Execute the following command:
 
-> fody-cli MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=true
+> fody-cli MySolution.sln --addin ConfigureAwait -a ContinueOnCapturedContext=false --addin Rougamo
 
 The `FodyWeavers.xml` after executing the command:
 
 ```xml
 <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
-  <ConfigureAwait ContinueOnCapturedContext="true" />
+  <ConfigureAwait ContinueOnCapturedContext="false" />
+  <Rougamo />
 </Weavers>
 ```
 
@@ -36,6 +37,10 @@ The `FodyWeavers.xml` after executing the command:
 
 - `<solutionOrProjectPath>` The path to the solution file (*.sln) or project file (*.csproj).
 - Options
+    - `--include-fody <VERSION>`
+
+        Add Fody NuGet dependency, with `<VERSION>` being the version number of Fody.
+
     - `--share <project|solution>`
 
         Specifies the sharing setting for the `FodyWeavers.xml` file. The default is `project`, which creates a separate `FodyWeavers.xml` for each project. Setting it to `solution` will create only one `FodyWeavers.xml` file in the solution directory. This configuration is ineffective when `<solutionOrProjectPath>` is the path to a project file.
@@ -76,15 +81,15 @@ The `FodyWeavers.xml` after executing the command:
 
     - `-pv, --package-version`
 
-        Plugin version, a sub-option of `--addin`. When this parameter is specified, Cli4Fody will add the NuGet package of the current plugin to each project, with the version being the current parameter value. This parameter can be used to resolve issues where indirect dependencies on MSBuild tasks by Fody plugins are ineffective. By adding a direct NuGet dependency to each project, this issue can be mitigated. It's important to note that to speed up the execution of Cli4Fody, NuGet packages are installed using the `--no-restore` option.
+        Plugin version, a sub-option of `--addin`. When this parameter is specified, Cli4Fody will add the NuGet package dependency of the current plugin to each project, with the version being the current parameter value. This parameter can be used to resolve issues where indirect dependencies on MSBuild tasks by Fody plugins are ineffective. By adding a direct NuGet dependency to each project, this issue can be mitigated. It's important to note that to speed up the execution of Cli4Fody, NuGet packages are installed using the `--no-restore` option.
 
     - `-m, --mode <overwrite|default>`
 
         Operation mode, a sub-option of `--addin`. The default is `overwrite`, which creates or overwrites an existing `--addin` configuration node. `default` means to set it as the default configuration; if the `--addin` configuration node already exists, no changes are made. Note that `-m, --mode` must be specified after `--addin` as a sub-option of `--addin`.
         
-        Correct usage: `fody-cli MySolution.sln --addin Rougamo -m default`
-        
         Incorrect usage: `fody-cli MySolution.sln -m default --addin Rougamo`
+        
+        Correct usage: `fody-cli MySolution.sln --addin Rougamo -m default`
 
     - `-n, --node <NODE>`
 
@@ -133,6 +138,63 @@ The `FodyWeavers.xml` after executing the command:
         </Weavers>
         ```
 
-## Non-Intrusive Code Weaving Case
+## Usage Scenarios
+
+Cli4Fody has two primary use cases:
+
+1. **Direct Dependency on Fody Plugins**: 
+   You may have noticed that when using Fody plugins, your project must directly depend on them. Indirect dependencies don’t work. For example, in the dependency chain [Project A] → [Project B] → Rougamo.Fody, Project A can use the types defined in Rougamo.Fody, but the corresponding MSIL (Microsoft Intermediate Language) won’t be modified unless Project A directly depends on Rougamo.Fody. This is because Fody modifies the MSIL through tasks inserted into the MSBuild pipeline after compilation, and these tasks are included in the Fody NuGet package under the `build` directory. In an indirect dependency scenario, the build configuration won’t be transmitted automatically, so each project needs to directly depend on the Fody plugin.
+
+   Since Fody plugin types can be used indirectly, it’s easy to forget to directly add the dependency, causing the plugin to not function properly. With Cli4Fody, you can resolve this issue by adding the direct dependency to every project in the solution. The following command will add a direct dependency on Rougamo.Fody to every project in the solution and create or update the `FodyWeavers.xml` file.
+   
+   ```
+   fody-cli MySolution.sln --addin Rougamo -pv 4.0.4
+   ```
+
+2. **Configuration-Only Plugins**:
+   Some Fody plugins, like ConfigureAwait.Fody and Pooling.Fody, can achieve their objectives through configuration alone. For these types of plugins, you can use Cli4Fody to directly configure them.
+
+   Example command:
+   ```shell
+   fody-cli MySolution.sln \
+             --addin ConfigureAwait -pv 3.3.2 -a ContinueOnCapturedContext=false \
+             --addin Pooling -pv 0.1.0 \
+                 -n Inspects:Inspect -v "execution(* *..*Service.*(..))" \
+                 -n Items:Item -a stateless=Random
+   ```
+
+### Recommended Practices
+
+Cli4Fody is well-suited for continuous integration (CI). You can easily configure it in an automated build process, ensuring both Fody plugin direct dependencies and non-invasive plugin configurations are applied consistently. For example, refer to the [DockerSample](https://github.com/inversionhourglass/Cli4Fody/tree/master/samples/DockerSample) project, where a Dockerfile uses Cli4Fody to ensure a direct dependency on Rougamo.Fody and add ConfigureAwait configuration.
+
+```docker
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+USER app
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+
+COPY ["ConsoleApp/ConsoleApp.csproj", "ConsoleApp/"]
+RUN dotnet restore "./ConsoleApp/ConsoleApp.csproj"
+
+COPY . .
+
+ENV PATH="$PATH:/root/.dotnet/tools"
+RUN dotnet tool install -g Cli4Fody
+RUN fody-cli DockerSample.sln --addin Rougamo -pv 4.0.4 --addin ConfigureAwait -pv 3.3.2  -a ContinueOnCapturedContext=false
+
+RUN dotnet restore "./ConsoleApp/ConsoleApp.csproj"
+
+RUN dotnet publish "./ConsoleApp/ConsoleApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "ConsoleApp.dll"]
+```
+
+## Pooling Zero-Intrusive Practice
 
 [Pooling](https://github.com/inversionhourglass/Pooling) uses Cli4Fody to achieve [non-intrusive object pooling operation replacement](https://github.com/inversionhourglass/Pooling/blob/master/README_en.md#zero-intrusion-pooling).
