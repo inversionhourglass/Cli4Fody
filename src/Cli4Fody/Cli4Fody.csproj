@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-	<VersionPrefix>1.0.0</VersionPrefix>
+	<VersionPrefix>1.0.1</VersionPrefix>
     <Authors>ihourglass</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

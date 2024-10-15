@@ -10,7 +10,7 @@ namespace Cli4Fody.Arguments
         {
             if (!Path.IsPathRooted(value))
             {
-                value = Path.Combine(System.IO.Directory.GetCurrentDirectory(), value);
+                value = Path.Combine(System.IO.Directory.GetCurrentDirectory(), NativePath(value));
             }
             Value = value;
             Directory = Path.GetDirectoryName(value)!;
@@ -43,7 +43,7 @@ namespace Cli4Fody.Arguments
                     var solutionContent = File.ReadAllText(Value);
                     var matches = ProjectMatcher().Matches(solutionContent);
 
-                    _projectPaths = matches.Select(x => Path.Combine(Directory, x.Groups[1].Value)).ToArray();
+                    _projectPaths = matches.Select(x => Path.Combine(Directory, NativePath(x.Groups[1].Value))).ToArray();
                 }
             }
 
@@ -56,6 +56,8 @@ namespace Cli4Fody.Arguments
 
             return new(targetPath);
         }
+
+        private static string NativePath(string path) => path.Replace('\\', Path.DirectorySeparatorChar);
 
         [GeneratedRegex(@"Project\("".*""\) = "".*"", ""([^""]+\.csproj)""")]
         private static partial Regex ProjectMatcher();
