@@ -13,7 +13,7 @@ COPY . .
 
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet tool install -g Cli4Fody
-RUN fody-cli DockerSample.sln --addin Rougamo -pv 4.0.4 --addin ConfigureAwait -pv 3.3.2  -a ContinueOnCapturedContext=false
+RUN fody-cli DockerSample.sln --include-fody 6.8.1 --addin Rougamo -pv 4.0.4 --addin ConfigureAwait -pv 3.3.2  -a ContinueOnCapturedContext=false
 
 RUN dotnet restore "./ConsoleApp/ConsoleApp.csproj"
 
